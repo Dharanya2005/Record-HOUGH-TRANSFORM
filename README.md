@@ -1,12 +1,10 @@
-# Record-HOUGH-TRANSFORM
 # Edge-Linking-using-Hough-Transformm
 ## Experiment No: 7
-
 ## Name:
 Dharanya N
-
 ## Register Number:
 212223230044
+
 ## Aim:
 To write a Python program to detect the lines using Hough Transform.
 
@@ -29,73 +27,65 @@ Using Canny operator from cv2,detect the edges of the image.
 ### Step5:
 
 Using the HoughLinesP(),detect line co-ordinates for every points in the images.Using For loop,draw the lines on the found co-ordinates.Display the image.
-# Program:
-### **Step 1: Read and Display Image**
-```python
-import cv2
+
+## Program:
+
+Developed by : DHARANYA N
+
+Register no : 212223230044
+
+### Read image and convert it to grayscale image
+```
 import numpy as np
+import cv2
 import matplotlib.pyplot as plt
-image = cv2.imread('Qn_7_.jpg') 
+img=cv2.imread("Qn_7_.jpg",0)
+img_c=cv2.imread("Qn_7_.jpg",1)
+img_c=cv2.cvtColor(img_c,cv2.COLOR_BGR2RGB)
+gray=cv2.cvtColor(img,cv2.COLOR_GRAY2RGB)
+gray = cv2.GaussianBlur(gray,(3,3),0)
+plt.figure(figsize=(13,13))
+plt.subplot(1,2,1)
+plt.imshow(img_c)
+plt.title("Original Image")
+plt.axis("off")
+plt.subplot(1,2,2)
+plt.imshow(gray)
+plt.title("Gray Image")
+plt.axis("off")
+plt.show()
 ```
-
-### **Step 2: Convert the image to grayscale**
-```python
-gray_image = cv2.cvtColor(image, cv2.COLOR_BGR2GRAY)
+### Find the edges in the image using canny detector and display
 ```
-
-### **Step 3: Input image and grayscale image**
-```python
-plt.imshow(cv2.cvtColor(image, cv2.COLOR_BGR2RGB))  # Convert image to RGB for displaying
-plt.title("Input Image")
-plt.axis('off')
-plt.imshow(gray_image, cmap='gray')
-plt.title("Grayscale Image")
-plt.axis('off')
-```
-
-### **Step 4: Using Canny operator from cv2, detect the edges of the image**
-```python
-edges = cv2.Canny(gray_image, 50, 150)
-```
-
-### **Step 5:Canny Edge Detector output**
-```python
-plt.imshow(edges, cmap='gray')
+canny=cv2.Canny(gray,70,90)
+plt.imshow(canny)
 plt.title("Canny Edge Detector")
-plt.axis('off')
+plt.axis("off")
+plt.show()
 ```
-
-### **Step 6: Using the HoughLinesP(), Cfor every point in the image**
-```python
-lines = cv2.HoughLinesP(edges, 1, np.pi / 180, 100, minLineLength=50, maxLineGap=10)
+### Display the result of Hough transform
 ```
-
-### **Step 7:Draw the lines on the original image using the detected coordinates**
-```python
+lines=cv2.HoughLinesP(canny,1,np.pi/180,threshold=80,minLineLength=50,maxLineGap=250)
 for line in lines:
-    x1, y1, x2, y2 = line[0]  # Unpacking the line coordinates
-    cv2.line(image, (x1, y1), (x2, y2), (0, 255, 0), 2)  # Draw green lines with thickness of 2
-```
-
-### **Step 8:Display the result of Hough Transform (Image with lines)**
-```python
-plt.imshow(cv2.cvtColor(image, cv2.COLOR_BGR2RGB))  # Image with lines drawn
-plt.title("Result of Hough Transform")
-plt.axis('off')
+    x1,y1,x2,y2=line[0]
+    cv2.line(img_c,(x1,y1),(x2,y2),(255,0,0),3)
+    plt.imshow(img_c)
+plt.title("Result Image")
+plt.axis("off")
+plt.show()
 ```
 ## Output
 
 ### Input image and grayscale image
-<img width="515" height="390" alt="download" src="https://github.com/user-attachments/assets/62ab516d-aa71-4ffc-969d-318402801811" />
-<img width="515" height="390" alt="download" src="https://github.com/user-attachments/assets/715b361a-e847-49a4-8efa-aebba74ef2e1" />
-
+<img width="1027" height="363" alt="download" src="https://github.com/user-attachments/assets/18f174b7-f642-4e9e-b657-78b3404ea2f7" />
 
 ### Canny Edge detector output
-<img width="515" height="390" alt="download" src="https://github.com/user-attachments/assets/644c61ca-344d-483a-85e7-8e604be10270" />
+<img width="515" height="390" alt="download" src="https://github.com/user-attachments/assets/9823b491-3699-44ea-a4ba-b4e0591b5c98" />
 
 ### Display the result of Hough transform
+<img width="515" height="390" alt="download" src="https://github.com/user-attachments/assets/db8d15f9-4cb3-404e-a4b8-2fecf44a15d6" />
 
-<img width="515" height="390" alt="download" src="https://github.com/user-attachments/assets/3c6b91be-1619-4b5f-a706-4b66df082ad1" />
+
 
 ## Result:
 Thus the program is written with python and OpenCV to detect lines using Hough transform.
